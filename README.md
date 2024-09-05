@@ -1,5 +1,7 @@
 # Predictive Maintenance for Manufacturing Equipment
 
+https://giriprasath1608-instrument-failure-prediction-home-hictyt.streamlit.app/ deployed in streamlit cloud community server
+
 ## Project Description
 The goal is to develop a predictive maintenance model that can predict equipment
 failures before they occur. The dataset includes sensor readings and maintenance
