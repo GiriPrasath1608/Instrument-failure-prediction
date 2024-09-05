@@ -17,7 +17,7 @@ from sklearn.feature_selection import chi2,f_classif,SelectKBest,SelectPercentil
 
 def data_encoder(instrument_readings_df):
   X = instrument_readings_df.drop(columns = ['Product ID'])
-  with open (r'\mount\src\instrument-failure-prediction\model\scaler.pkl', 'rb') as f:
+  with open ('model/scaler.pkl', 'rb') as f:
     Type_data = pkl.load(f)
   encoder =  LabelEncoder().fit(Type_data)
   X['Type'] = encoder.transform(instrument_readings_df['Type'])
@@ -38,16 +38,16 @@ def data_engineering(instrument_readings):
   return instrument_readings_df
 
 def FailureType_decoder(failure_type_encoded):
-  with open(r'\mount\src\instrument-failure-prediction\model\FailureType.pkl','rb') as f:
+  with open('model/FailureType.pkl','rb') as f:
     Failure_types = pkl.load(f)
   decoder = LabelEncoder().fit(Failure_types)
   Failure_Type_decoded = decoder.inverse_transform(failure_type_encoded)
   return Failure_Type_decoded
 
 def IFDS_model(instrument_readings):
-  with open (r'\mount\src\instrument-failure-prediction\model\model_smote.pkl','rb')as file:
+  with open ('model/model_smote.pkl','rb')as file:
     ensemble_smote = pkl.load(file)
-  with open (r'\model\model_rose.pkl','rb')as file:
+  with open ('model/model_rose.pkl','rb')as file:
     ensemble_rose = pkl.load(file)
 
   data_engineered_instrument_readings = data_engineering(instrument_readings)
@@ -61,7 +61,7 @@ def IFDS_model(instrument_readings):
 
 
   if y_pred:
-    with open (r'\mount\src\instrument-failure-prediction\model\MultiClassModel.pkl','rb')as file:
+    with open ('model/MultiClassModel.pkl','rb')as file:
       MultiClassModel = pkl.load(file)
 
     failure_type_encoded = MultiClassModel.predict(X)
